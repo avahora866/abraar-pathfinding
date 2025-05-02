@@ -94,6 +94,8 @@ function App() {
     return response.filter(route => !route.selected).map((r) => r.routes)
   }, [response]);
 
+  const [animKey, setAnimKey] = useState(0);
+
   const blueOptions = { color: '#166af2', weight: 5, smoothFactor: 4, noClip: false }
   const lightBlueOptions = { color: '#78abff', weight: 4, smoothFactor: 4 }
 
@@ -107,6 +109,7 @@ function App() {
       return x;
     });
     setResponse(replaced)
+    setAnimKey(prev => prev + 1)
   }
 
   return (
@@ -116,10 +119,10 @@ function App() {
           attribution='&copy; OpenStreetMap contributors'
           url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
         />
-        <Polyline pathOptions={lightBlueOptions} positions={otherRoutes} className="animated-polyline" />
-        <Polyline pathOptions={blueOptions} positions={selectedRoute} className="animated-polyline" />
+        <Polyline key={`other-${animKey}`} pathOptions={lightBlueOptions} positions={otherRoutes} className="animated-polyline" />
+        <Polyline key={`selected-${animKey}`} pathOptions={blueOptions} positions={selectedRoute} className="animated-polyline" />
       </MapContainer>
-      <button onClick={test} style={{ "margin": "40px" }}>Change route</button>
+      <button onClick={changeRoute} style={{ "margin": "40px" }}>Change route</button>
     </>
   )
 }
