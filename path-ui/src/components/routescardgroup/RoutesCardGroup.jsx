@@ -16,7 +16,7 @@ export default function RoutesCardGroup({ routes, reset }) {
                     <div className="card-content">
                         <p>Time: {route.time}</p>
                         <p>Distance: {route.distance}</p>
-                        <button onClick={() => changeRoute(index)}>Change Route</button>
+                        <button onClick={() => changeRoute(index)}>Select</button>
                     </div>
                 </div>
             ))}

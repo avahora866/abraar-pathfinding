@@ -31,3 +31,13 @@
   font-size: 14px;
   color: #555;
 }
+
+.card-content button {
+  padding: 10px;
+  font-size: 12px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
