@@ -1,0 +1,39 @@
+.layout {
+  position: relative;
+}
+
+.sidebar-toggle {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 2000; /* on top of sidebar */
+  padding: 0px 5px;
+  background-color: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  border-radius: 4px;
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 250px;
+  height: 100%;
+  background-color: #f0f0f0;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.3);
+  padding: 40px 0px 0px 0px; /* top padding so content starts below button */
+  transition: left 0.3s ease;
+  z-index: 1000;
+}
+
+
+.sidebar.open {
+  left: 0; /* visible when open */
+}
+
+.sidebar-content {
+  padding: 16px; /* enough padding to avoid the toggle button */
+}
