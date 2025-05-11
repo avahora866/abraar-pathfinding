@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import { useState, useMemo } from 'react';
 
 
-function Map({routes, animKey}) {
+function Map({ routes, animKey }) {
 
 
   const selectedRoute = useMemo(() => {
