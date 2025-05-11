@@ -13,18 +13,7 @@ function App() {
   const [animKey, setAnimKey] = useState(0);
 
 
-  const changeRoute = () => {
-    let replaced = routes.map(x => {
-      if (x.name === "Route 2") {
-        return { ...x, selected: true };
-      } else if (x.selected === true) {
-        return { ...x, selected: false };
-      }
-      return x;
-    });
-    setRoutes(replaced)
-    setAnimKey(prev => prev + 1)
-  }
+
 
   const handleResponse = (response) => {
     setRoutes(response);
@@ -35,8 +24,6 @@ function App() {
     <>
       <SidebarLayout setResponse={handleResponse}></SidebarLayout>
       <Map routes={routes} animKey={animKey}></Map>
-      <button onClick={changeRoute} style={{ "margin": "40px" }}>Change route</button>
-
     </>
   )
 }
