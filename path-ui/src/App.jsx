@@ -6,14 +6,8 @@ import { useState, useMemo } from 'react';
 
 
 function App() {
-  const [routes, setRoutes] = useState(
-    [
-    ]
-  );
+  const [routes, setRoutes] = useState([]);
   const [animKey, setAnimKey] = useState(0);
-
-
-
 
   const handleResponse = (response) => {
     setRoutes(response);

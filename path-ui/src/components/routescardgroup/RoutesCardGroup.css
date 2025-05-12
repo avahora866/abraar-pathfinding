@@ -35,9 +35,16 @@
 .card-content button {
   padding: 10px;
   font-size: 12px;
-  background-color: #0066cc;
-  color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  color: white;
+}
+
+.card-content button:enabled {
+  background-color: #0066cc;
+}
+
+.card-content button:disabled {
+  background-color: #8b8b8b;
 }

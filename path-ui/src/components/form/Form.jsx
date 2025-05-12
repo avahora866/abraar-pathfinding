@@ -4,7 +4,6 @@ import OSMAutocompleteDropdown from '../osmdropdown/OSMAutocompleteDropdown';
 
 export default function Form({ routes }) {
   const tempRespones = [
-
     {
       "name": "Route 1",
       "selected": true,

@@ -5,8 +5,6 @@ import { useState, useMemo } from 'react';
 
 
 function Map({ routes, animKey }) {
-
-
   const selectedRoute = useMemo(() => {
     return routes.filter(route => route.selected).map((r) => r.routes)
   }, [routes]);
@@ -18,8 +16,6 @@ function Map({ routes, animKey }) {
 
   const blueOptions = { color: '#166af2', weight: 5, smoothFactor: 4, noClip: false }
   const lightBlueOptions = { color: '#78abff', weight: 4, smoothFactor: 4 }
-
-
 
   return (
     <>
