@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class RouteRequest {
-    private int[] start;
-    private int[] end;
+    private double[] start;
+    private double[] destination;
 }

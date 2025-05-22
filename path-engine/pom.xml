@@ -51,6 +51,13 @@
 			<version>2.15.2</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.openstreetmap.pbf/osmpbf -->
+		<dependency>
+			<groupId>org.openstreetmap.pbf</groupId>
+			<artifactId>osmpbf</artifactId>
+			<version>1.6.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
