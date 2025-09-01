@@ -11,9 +11,8 @@ public class RoutingController {
     private GeographicalDataService geographicalDataService;
 
     @GetMapping("getRoutes")
-    public Routes getRoutes(@RequestBody RouteRequest routeRequest)
-    {
-        // Given a start and destination return a graph represnetation of the geographical data to be used by algorithms
+    public Routes getRoutes(@RequestBody RouteRequest routeRequest) throws InterruptedException {
+        // Given a start and destination return a graph representation of the geographical data to be used by algorithms
         geographicalDataService.getGraph(routeRequest);
         return null;
     }
