@@ -13,38 +13,52 @@ import static com.abraar.pathfinding.service.geographicalData.CityLookup.lookup;
 
 @Service
 public class GeographicalDataServiceVersion {
+
     @Autowired
     private GeocodingService geocodingService;
 
     @Autowired
     private PBFFileHandler pbfFileHandler;
 
-    @Value("${file}")
-    private String filePath;
+    @Value("${file.directory}")
+    private String fileDirectory;
+
+    private String currentCity = null;
+    private File currentFile = null;
+    private Graph currentGraph = null;
 
     public Graph getGraph(RouteRequest routeRequest) {
         double[] start = routeRequest.getStart();
         double[] destination = routeRequest.getDestination();
+
         String startCity = geocodingService.getCityFromCoordinates(start[0], start[1]);
         String destinationCity = geocodingService.getCityFromCoordinates(destination[0], destination[1]);
-        if (!startCity.equals(destinationCity))
-        {
+
+        if (!startCity.equals(destinationCity)) {
             throw new IllegalArgumentException("Start and Destination must be in the same city");
         }
 
-        pbfFileHandler.downloadFile(lookup(startCity));
+        synchronized (this) {
+            if (startCity.equals(currentCity) && currentFile != null && currentFile.exists() && currentGraph != null) {
+                return currentGraph;
+            }
 
-        Graph graph = new Graph();
-        File pbfFile = new File(filePath);
-        OsmosisReader pbfReader = new OsmosisReader(pbfFile);
+            if (currentFile != null && currentFile.exists()) {
+                currentFile.delete();
+            }
 
-        GraphBuilderSink graphBuilderSink = new GraphBuilderSink(graph);
+            currentFile = new File(fileDirectory, startCity + ".pbf");
+            pbfFileHandler.downloadFile(lookup(startCity), currentFile.getAbsolutePath());
+            currentCity = startCity;
 
-        pbfReader.setSink(graphBuilderSink);
-        pbfReader.run();
+            currentGraph = new Graph();
+            OsmosisReader pbfReader = new OsmosisReader(currentFile);
+            GraphBuilderSink graphBuilderSink = new GraphBuilderSink(currentGraph);
 
-        pbfFileHandler.removeFile();
-        return graph;
+            pbfReader.setSink(graphBuilderSink);
+            pbfReader.run();
 
+            return currentGraph;
+        }
     }
 }
