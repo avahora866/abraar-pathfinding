@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
-import './Form.css'; // Link to the CSS file below
+import { useState } from 'react';
+import './Form.css';
 import OSMAutocompleteDropdown from '../osmdropdown/OSMAutocompleteDropdown';
 
-export default function Form({ routes }) {
-  const tempRespones = [
+export default function Form({ onRoutesGenerated }) {
+  const tempResponses = [
     {
       "name": "Route 1",
       "selected": true,
@@ -86,8 +86,8 @@ export default function Form({ routes }) {
         [52.632249, -1.105918]
       ]
     }
-  ]
-  // Form Functionality
+  ];
+
   const [formData, setFormData] = useState({
     start: [],
     destination: []
@@ -109,23 +109,18 @@ export default function Form({ routes }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
-  };
-
-  const onSubmit = (data) => {
-    // Replace with your logic
-    console.log('Submitted data:', data);
-    routes(tempRespones);
+    console.log('Submitted data:', formData);
+    onRoutesGenerated(tempResponses);
   };
 
   return (
     <form className="form" onSubmit={handleSubmit}>
       <label> Start:
-        <OSMAutocompleteDropdown onSelect={handleStartSelect}></OSMAutocompleteDropdown>
+        <OSMAutocompleteDropdown onSelect={handleStartSelect} />
       </label>
       <label>
         Destination:
-        <OSMAutocompleteDropdown onSelect={handleDestinationSelect}></OSMAutocompleteDropdown>
+        <OSMAutocompleteDropdown onSelect={handleDestinationSelect} />
       </label>
       <button type="submit">Submit</button>
     </form>

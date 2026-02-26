@@ -1,12 +1,12 @@
 import './RoutesCardGroup.css';
 
-export default function RoutesCardGroup({ routes, reset }) {
-    const changeRoute = (e) => {
-        let replaced = routes.map((x, i) => {
-            return { ...x, selected: i === e };
+export default function RoutesCardGroup({ routes, onRouteSelect }) {
+    const changeRoute = (selectedIndex) => {
+        const replaced = routes.map((x, i) => {
+            return { ...x, selected: i === selectedIndex };
         });
-        reset(replaced)
-    }
+        onRouteSelect(replaced);
+    };
 
     return (
         <div className="card-group">
