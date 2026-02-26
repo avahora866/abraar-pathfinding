@@ -2,6 +2,10 @@ package com.abraar.pathfinding.service.geographicalData;
 
 import com.abraar.pathfinding.dto.NominatimAddress;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -30,17 +34,29 @@ public class GeocodingService {
 
         try {
             // Make the GET request and map the response to our DTO
-            NominatimAddress response = restTemplate.getForObject(url, NominatimAddress.class);
+            HttpHeaders headers = new HttpHeaders();
+            // Replace with your actual app name or contact email
+            headers.set("User-Agent", "AbraarPathfindingApp/1.0 (avahora1@hotmail.com)");
+
+            HttpEntity<String> entity = new HttpEntity<>(headers);
+
+            ResponseEntity<NominatimAddress> responseEntity = restTemplate.exchange(
+                    url,
+                    HttpMethod.GET,
+                    entity,
+                    NominatimAddress.class
+            );
+
+            NominatimAddress response = responseEntity.getBody();
 
             if (response != null && response.getAddress() != null) {
-                // Get the city, town, or village from the nested address object
                 return response.getCity();
             }
         } catch (Exception e) {
             // Handle exceptions (e.g., API is down, network issues, bad coordinates)
-            System.err.println("Error calling Nominatim API: " + e.getMessage());
+            throw new RuntimeException("Error calling Nominatim API: " + e.getMessage());
         }
 
-        return null; // Return null if the city could not be found
+        throw new NullPointerException("Could not find city");
     }
 }

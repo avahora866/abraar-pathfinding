@@ -25,13 +25,14 @@ public class GeographicalDataServiceVersion {
     public Graph getGraph(RouteRequest routeRequest) {
         double[] start = routeRequest.getStart();
         double[] destination = routeRequest.getDestination();
-        String city = geocodingService.getCityFromCoordinates(start[0], start[1]);
-        if (city.equals(geocodingService.getCityFromCoordinates(destination[0], destination[1])))
+        String startCity = geocodingService.getCityFromCoordinates(start[0], start[1]);
+        String destinationCity = geocodingService.getCityFromCoordinates(destination[0], destination[1]);
+        if (!startCity.equals(destinationCity))
         {
             throw new IllegalArgumentException("Start and Destination must be in the same city");
         }
 
-        pbfFileHandler.downloadFile(lookup(city));
+        pbfFileHandler.downloadFile(lookup(startCity));
 
         Graph graph = new Graph();
         File pbfFile = new File(filePath);

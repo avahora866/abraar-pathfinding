@@ -15,9 +15,9 @@ public class Routes {
     @Setter
     public static class Route {
         private String algorithm;
-        private int[][] route;
-        private int timeTaken;
-        private int time;
+        private double[][] route;
+        private long algorithmTime;
+        private int distance;
     }
 }
 
